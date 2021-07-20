@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: true,
+  endpoint: 'https://devapi.decentralfi.io/api/v1/',
+  network: 'chaosnet',
+  BNB_BASE_NUMBER:  Math.pow(10, 8), // 1e8
 };
 
 /*

@@ -1,10 +1,34 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 
-const routes: Routes = [];
+
+const appRoutes: Routes = [
+  {
+    path: 'dex',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  /*{
+    path: 'app',
+    loadChildren: () => import('./modules/decentral-app/decentral-app.module').then(m => m.DecentralAppModule)
+  },*/
+  {
+    path: '',
+    loadChildren: () => import('./modules/dex/dex.module').then(m => m.DexModule)
+  },
+  {
+    path: '**',
+    redirectTo: '404'
+  }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  declarations: [],
+  imports: [
+    RouterModule.forRoot(appRoutes, {
+      scrollPositionRestoration: 'enabled'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
