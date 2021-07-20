@@ -8,10 +8,10 @@ const appRoutes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
-  /*{
+  {
     path: 'app',
     loadChildren: () => import('./modules/decentral-app/decentral-app.module').then(m => m.DecentralAppModule)
-  },*/
+  },
   {
     path: '',
     loadChildren: () => import('./modules/dex/dex.module').then(m => m.DexModule)
