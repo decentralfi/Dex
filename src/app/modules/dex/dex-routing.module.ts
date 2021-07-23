@@ -13,6 +13,10 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('./marketcap/marketcap.module').then(m => m.MarketcapModule)
       },
+      {
+        path: 'swap',
+        loadChildren: () => import('./swap/swap.module').then(m => m.SwapModule)
+      },
     ]
   }
 

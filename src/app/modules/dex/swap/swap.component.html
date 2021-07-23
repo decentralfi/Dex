@@ -1,0 +1,167 @@
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center">
+  <div class="header liquidity" fxFlex="100" fxLayout="row" fxLayoutAlign="end center">
+    <mat-slide-toggle class="theme-toggle" color="primary" (click)="setTheme()" [(ngModel)]="isToggle">
+    </mat-slide-toggle>
+  </div>
+  <div class="container" fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+    <div class="main" fxLayout="column">
+      <div class="main-header" fxLayout="column" fxFlex="100">
+        <div class="logo">
+          <img src="../../../assets/images/{{logoFile}}" alt="logo">
+        </div>
+        <div class="text" fxLayoutAlign="center center">
+          <span>** This functionality is being modified <br>to fit the new Thorchain multichain</span>
+        </div>
+        <div class="connect-button" fxLayoutAlign="center center" *ngIf="bnbAddress.length == 0">
+          <button mat-raised-button class="wallet-button" (click)="addWallet()">
+            <span class="add-wallet-button-label">Connect to a wallet</span>
+            <mat-icon class="add-wallet-icon">account_balance_wallet</mat-icon>
+          </button>
+        </div>
+        <div class="connected-button" fxLayoutAlign="center center" *ngIf="bnbAddress.length > 0">
+          <button mat-raised-button class="wallet-button" (click)="walletDetails()">
+            <span class="add-wallet-button-label">{{bnbAddressMask}}</span>
+          </button>
+          <button mat-raised-button class="forget-button" (click)="forgetWallet()">
+            <span class="add-wallet-button-label">Forget</span>
+          </button>
+        </div>
+      </div>
+      <div class="main-content" fxFlex="100">
+        <div class="component-main" fxLayout="column" *ngIf="!showConfirm">
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div class="amount-field" fxFlex="50" fxLayout="column">
+              <h4 fxLayoutAlign="space-between center">
+                In (Have) 
+                <button mat-raised-button class="max-button" (click)="setMax()" *ngIf="balanceIn">
+                  MAX
+                </button>
+              </h4>
+              <mat-form-field appearance="outline" class="amount-field-input">
+                <input matInput type="number" [(ngModel)]="assetUnitIn" (ngModelChange)="updateAssetUnits($event)">
+              </mat-form-field>
+              <span class="hint">{{assetUnitInHint}}</span>
+            </div>
+            <div class="select-field" fxFlex="40" fxLayout="column">
+              <h4>Send</h4>
+              <button mat-raised-button class="asset-button" (click)="setAsset('in')">
+                <img src="{{assetIn.iconPath}}" alt="TOKEN IN" width="24px" onerror='this.src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/assets/RUNE-B1A/logo.png"' />
+                {{assetIn.ticker}}
+                <mat-icon class="expand-icon">expand_more</mat-icon>
+              </button>
+              <span class="hint">{{hintIn}}</span>
+            </div>
+          </div>
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div class="amount-field" fxFlex="50" fxLayout="column">
+              &nbsp;
+            </div>
+            <div class="select-field" fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
+              <button mat-mini-fab class="swap" (click)="assetSwap()">
+                <mat-icon class="expand-icon">swap_vert</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <div class="amount-field" fxFlex="50" fxLayout="column">
+              <h4>Out (Want)</h4>
+              <mat-form-field appearance="outline" class="amount-field-input">
+                <input matInput value="0" [(ngModel)]="assetUnitOut" readonly>
+              </mat-form-field>
+              <span class="hint">&nbsp;</span>
+            </div>
+            <div class="select-field" fxFlex="40" fxLayout="column">
+              <h4>Recieve</h4>
+              <button mat-raised-button class="asset-button" (click)="setAsset('out')">
+                <img src="{{assetOut.iconPath}}" alt="TOKEN OUT" width="24px" onerror='this.src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/assets/RUNE-B1A/logo.png"' />
+                {{assetOut.ticker}}
+                <mat-icon class="expand-icon">expand_more</mat-icon>
+              </button>
+              <span class="hint">{{hintOut}}</span>
+            </div>
+          </div>
+          <div class="component-row">
+            <div class="swap-button" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center start">
+              <button mat-raised-button class="swap" (click)="confirmSwap()">
+                <span class="swap-label">Swap</span>
+                <mat-icon class="swap-icon">sync_alt</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="component-main" fxLayout="column" *ngIf="showConfirm">
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="center center">
+            <h4 class="confirm-title">Confirm Swap</h4>
+          </div>
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="center center">
+            <div class="confirm-asset" fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayoutAlign="center center">
+                <img src="{{assetIn.iconPath}}" alt="TOKEN IN" width="24px" onerror='this.src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/assets/RUNE-B1A/logo.png"' />
+                <span>{{assetUnitIn}}</span>
+              </div>
+              <div>
+                <span>{{assetIn.ticker}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="start center">
+            <mat-icon class="down-arrow-icon">arrow_downward</mat-icon>
+          </div>
+          <div class="component-row" fxLayout="row wrap" fxLayoutAlign="center center">
+            <div class="confirm-asset" fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayoutAlign="center center">
+                <img src="{{assetOut.iconPath}}" alt="TOKEN IN" width="24px" onerror='this.src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/assets/RUNE-B1A/logo.png"' />
+                <span>{{assetUnitOut}}</span>
+              </div>
+              <div>
+                <span>{{assetOut.ticker}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="component-row" fxLayoutAlign="start center">
+            <span class="info">Output is estimated</span>
+          </div>
+          <div fxLayout="column" class="component-row">
+            <div class="fee-detail" fxLayoutAlign="space-between center">
+              <div class="field">
+                Price
+              </div>
+              <div class="detail">
+                {{basePrice | number:"1.2-6"}}  {{assetIn.ticker}} per {{assetOut.ticker}}
+              </div>
+            </div>
+            <div class="fee-detail" fxLayoutAlign="space-between center">
+              <div class="field">
+                Total Fee
+              </div>
+              <div class="detail">
+                {{binanceTransferFeeDisplay | number:"0.0-6"}} BNB + {{runeTransactionFee}} RUNE
+              </div>
+            </div>
+            <div class="fee-detail" fxLayoutAlign="space-between center">
+              <div class="field">
+                Slip
+              </div>
+              <div class="detail">
+                {{slip | percent:"0.2-4" }}
+              </div>
+            </div>
+          </div>
+          <div class="component-row">
+            <div class="confirm-swap-button" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center start">
+              <button mat-raised-button class="back" (click)="backSwap()">
+                <span class="swap-label">Back</span>
+              </button>
+              <button mat-raised-button class="swap" (click)="swap()">
+                <span class="swap-label">Confirm Swap</span>
+                <mat-icon class="swap-icon">sync_alt</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="wallet-connect-dialog" fxLayout="column">
+  <div class="dialog-exit-button" fxLayout="row wrap" fxLayoutAlign="end start">
+    <a (click)="closeDialog()"><mat-icon class="close-icon">close</mat-icon></a>
+  </div>
+  <div class="dialog-header" fxLayout="column" fxLayoutAlign="center center">
+    
+    <h3>Select a token</h3>
+
+    <mat-form-field appearance="outline" class="search-field-input">
+      <input matInput [(ngModel)]="searchTerm" placeholder="Search Token">
+    </mat-form-field>
+
+    <div class="sub-title" fxLayout="row" fxLayoutAlign="space-between center">
+      <h5>Token Name</h5>
+      <h5>Balance</h5>
+    </div>
+  </div>
+  <div class="asset-list-container" fxLayout="row wrap" fxLayoutAlign="start start">
+
+    <div *ngIf="loading" class="asset-loader-spinner" fxFlex="100" fxLayoutAlign="center center">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+
+    <ul fxFlex="100" *ngIf="!loading && filteredMarketListItems">
+      <li *ngFor="let item of filteredMarketListItems" fxLayout="row" fxLayoutAlign="start center" (click)="selectToken(item)" [class.disabled]="item.asset.ticker == data.disabledAssetSymbol">
+        <div class="asset-icon-container">
+          <img *ngIf="item.asset.iconPath" class="asset-icon" [src]="item.asset.iconPath" loading="lazy" />
+          <mat-icon *ngIf="!item.asset.iconPath">help_outline</mat-icon>
+        </div>
+        <div class="asset-token-container" fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxLayout="column">
+            <span class="symbol">{{item.asset.ticker}}</span>
+            <span class="chain">{{item.asset.chain}}</span>
+          </div>
+          <div *ngIf="item.balance">
+            <span class="balance">{{item.balance.assetValue.amount().toNumber()}}</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</div>

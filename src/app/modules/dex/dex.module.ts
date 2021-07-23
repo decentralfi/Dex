@@ -6,6 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { LoaderService } from './shared/services/loader.service';
 import { MarketcapService } from './shared/services/marketcap.service';
 import { MarketcapModule } from './marketcap/marketcap.module';
+import { SwapModule } from './swap/swap.module';
 import { DecimalPipe } from '@angular/common';
 import { RoundedValuePipe } from './shared/pipes/rounded-value.pipe';
 
@@ -15,6 +16,7 @@ import { RoundedValuePipe } from './shared/pipes/rounded-value.pipe';
     DexRoutingModule,
     SharedModule,
     MarketcapModule,
+    SwapModule,
   ],
   providers: [
     LoaderService,

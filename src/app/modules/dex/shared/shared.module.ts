@@ -34,6 +34,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 /*Shared Components*/
 import { LoaderComponent } from './loader/loader.component';
+import { ForgetWalletComponent } from '../shared/dialogs/forget-wallet/forget-wallet.component';
+import { ConnectWalletComponent } from '../shared/dialogs/connect-wallet/connect-wallet.component';
+import { AssetsDialogComponent } from '../shared/dialogs/assets-dialog/assets-dialog.component';
+import { ProcessTransactionComponent } from '../shared/dialogs/process-transaction/process-transaction.component';
 import { InfoBarComponent } from '../shared/components/info-bar/info-bar.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
 import { HeaderComponent } from '../shared/components/header/header.component';
@@ -71,6 +75,10 @@ import { RoundedValuePipe } from '../shared/pipes/rounded-value.pipe';
   ],
   declarations: [
     LoaderComponent,
+    ForgetWalletComponent,
+    ConnectWalletComponent,
+    AssetsDialogComponent,
+    ProcessTransactionComponent,
     InfoBarComponent,
     FooterComponent,
     HeaderComponent,

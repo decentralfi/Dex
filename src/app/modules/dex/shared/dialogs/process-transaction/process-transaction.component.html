@@ -1,0 +1,28 @@
+<div class="process-dialog-container">
+  <div class="dialog-header" fxLayout="row" fxLayoutAlign="center center">
+    YOU ARE SWAPPING
+  </div>
+  <div class="dialog-loader" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner diameter="96" *ngIf="status == 'process'"></mat-spinner>
+    <mat-icon class="result-icon" *ngIf="status != 'process'">{{resultIcon}}</mat-icon>
+  </div>
+  <div class="asset" fxLayout="row" fxLayoutAlign="center center">
+    <img src="{{swapData.sourceAsset.iconPath}}" alt="TOKEN IN" width="24px" onerror='this.src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/assets/RUNE-B1A/logo.png"' />
+    <span>{{swapData.sourceAsset.ticker}} {{swapData.inputValue}}</span>
+  </div>
+  <div class="arrow" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon class="down-arrow-icon">arrow_downward</mat-icon>
+  </div>
+  <div class="asset" fxLayout="row" fxLayoutAlign="center center">
+    <img src="{{swapData.targetAsset.iconPath}}" alt="TOKEN IN" width="24px" onerror='this.src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/assets/RUNE-B1A/logo.png"' />
+    <span>{{swapData.targetAsset.ticker}} {{swapData.outputValue}}</span>
+  </div>
+  <div class="dialog-footer" fxLayout="row" fxLayoutAlign="center center" *ngIf="status == 'sucess'">
+    <a target="_blank" *ngIf="hash" [href]="binanceExplorerUrl + 'tx/' + hash">VIEW TRANSACTION</a>
+  </div>
+  <div class="dialog-actions-row" fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="status != 'process'">
+    <button mat-raised-button class="no-button" (click)="closeDialog()">
+      <span class="no-button-label">Close</span>
+    </button>
+  </div>
+</div>

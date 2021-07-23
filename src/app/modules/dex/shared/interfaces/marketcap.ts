@@ -1,3 +1,4 @@
+import { number } from "is_js";
 
 export interface Marketcap {
 }
